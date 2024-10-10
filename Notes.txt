@@ -1,0 +1,112 @@
+Sure, let's break down the concepts and differences between the two implementations while relating them to your examples. 
+
+### 1. **Classes and Constructors**
+//-> must read ithttps://www.w3schools.com/Js/js_classes.asp
+// -> https://www.w3schools.com/js/js_objects.asp
+#### Class
+A class in JavaScript is a blueprint for creating objects with shared properties and methods. It encapsulates data and behavior related to that data. You define a class using the `class` keyword.
+
+**Example:**
+```javascript
+class Node {
+  constructor(val, next = null, prev = null) {
+    this.val = val;
+    this.next = next;
+    this.prev = prev;
+  }
+}
+```
+In this `Node` class:
+- `val` represents the value of the node.
+- `next` is a reference to the next node in the list.
+- `prev` is a reference to the previous node in the list.
+
+#### Constructor
+The `constructor` method is a special method for creating and initializing an object created with a class. It's called automatically when a new instance of the class is created.
+
+**Example:** z
+```javascript
+constructor(val, next = null, prev = null) {
+  this.val = val;
+  this.next = next;
+  this.prev = prev;
+}
+```
+Here, the constructor initializes `val`, `next`, and `prev` properties when a new `Node` object is created.
+
+### 2. **Using `this` Keyword**
+
+The `this` keyword in JavaScript refers to the object that is executing the current piece of code. It allows you to access and manipulate properties and methods of the object from within its class.
+
+**Example in `Node` class:**
+```javascript
+this.val = val;
+this.next = next;
+this.prev = prev;
+```
+Here, `this` refers to the instance of the `Node` class being created. 
+
+### 3. **Prototypes and Methods**
+
+**Prototype**
+In JavaScript, every function has a `prototype` property that is used to attach methods that should be shared across all instances of that function. For classes, methods defined on the class are added to the prototype automatically.
+
+**Example:**
+```javascript
+MyLinkedList.prototype.get = function(index) {
+  if (index < 0 || index >= this.size) {
+    return -1;
+  }
+  let current = this.head;
+  for (let i = 0; i < index; i++) {
+    current = current.next;
+  }
+  return current.val;
+};
+````
+Here, `get` is a method attached to the prototype of `MyLinkedList`. This means all instances of `MyLinkedList` will have access to this method.
+
+### 4. **Differences between the Two Code Examples**
+
+#### Code Example 1: Using `MyLinkedList` with Prototype
+- **Approach**: Uses the function-based approach where methods are added to the prototype.
+- **Methods**: `get`, `addAtHead`, `addAtTail`, `addAtIndex`, `deleteAtIndex` are defined using `MyLinkedList.prototype.methodName`.
+- **Usage**: The `MyLinkedList` function initializes the linked list, and its methods manipulate the list.
+
+#### Code Example 2: Using `DoublyLinkedList` with Class
+- **Approach**: Uses the class-based approach where methods are defined directly within the class.
+- **Methods**: `get`, `addAtHead`, `addAtTail`, `addAtIndex`, `deleteAtIndex`, and `printList` are defined inside the class.
+- **Usage**: The `DoublyLinkedList` class initializes the linked list, and its methods manipulate the list.
+
+**Class-Based Approach (`DoublyLinkedList` Example)**
+```javascript
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  get(index) {
+    let current = this.head;
+    let count = 0;
+    while (current !== null) {
+      if (count === index) return current.data;
+      count++;
+      current = current.next;
+    }
+    return -1;
+  }
+
+  // Other methods...
+}
+```
+In this approach, the `DoublyLinkedList` class encapsulates all related methods and properties, making the code more organized and easier to understand.
+
+### Summary
+
+- **Classes and Constructors**: Define blueprints for objects and initialize their properties.
+- **`this` Keyword**: Refers to the current instance of a class or object.
+- **Prototypes**: Attach methods to the prototype of a function or class, allowing shared behavior among instances.
+- **Function-Based vs. Class-Based**: Function-based (`MyLinkedList`) uses prototypes, while class-based (`DoublyLinkedList`) encapsulates methods within the class, offering a more modern and organized approach.
+
+Both approaches achieve the same functionality but use different paradigms. The class-based approach is generally preferred in modern JavaScript due to its readability and encapsulation.
